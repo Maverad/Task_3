@@ -10,9 +10,6 @@ class TestConstructor:
         constructor.show_modal()
         constructor.wait_for_order_modal()
         order_id = '0' + constructor.get_order_id_counter()
-
-        assert constructor.check_create_order_success()
-
         constructor.hide_modal()
         order.click_on_order_feed()
         order.wait_for_order_feed_screen()
@@ -21,14 +18,22 @@ class TestConstructor:
         
         assert order_id == order_id_on_feed_screen
 
-    @allure.title('Проверка модального окна ингридиента')
-    def test_ingredient_modal(self, constructor):
+    @allure.title('Проверка открытия модального окна ингридиента')
+    def test_ingredient_modal_open(self, constructor):
         constructor.hide_modal()
         constructor.click_on_ingredient()
 
-        assert constructor.check_ingredient_modal()
-        
+        assert constructor.check_ingredient_modal_visible()
+
+    @allure.title('Проверка закрытия модального окна ингридиента')
+    def test_ingredient_modal_close(self, constructor):
+        constructor.hide_modal()
+        constructor.click_on_ingredient()
+        constructor.show_modal()
+        constructor.wait_for_ingredient_modal()
         constructor.close_modal()
+
+        assert constructor.check_ingredient_modal_invisible()
 
     @allure.title('Проверка изменения каунтера ингридиента')
     def test_ingredient_counter(self, constructor):

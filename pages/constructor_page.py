@@ -11,6 +11,9 @@ class ConstructorPage(BasePage):
     def wait_for_order_modal(self):
         self.wait_for_element(locator.order_modal_animation)
 
+    def wait_for_ingredient_modal(self):
+        self.wait_for_element(locator.close_modal)
+
     @allure.step('Клик по логотипу "Конструктор"')
     def click_on_constructor(self):
         self.click_on_element(locator.constructor)
@@ -47,8 +50,11 @@ class ConstructorPage(BasePage):
     def get_sauce_counter(self):
         return int(self.get_text_of_the_element(locator.ingredients_in_order_counter_sauce))
 
-    def check_ingredient_modal(self):
+    def check_ingredient_modal_visible(self):
         return self.check_visibility(locator.ingredient_modal_check)
+
+    def check_ingredient_modal_invisible(self):
+        return self.wait_for_invisibility(locator.ingredient_modal_check)
 
     def check_create_order_success(self):
         return self.check_visibility(locator.order_id)

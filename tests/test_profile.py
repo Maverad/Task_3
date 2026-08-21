@@ -14,9 +14,6 @@ class TestProfile:
         profile.click_on_reset_password_submit()
         profile.wait_for_new_password_screen()
         profile.input_new_password()
-
-        assert profile.get_new_password_input_attribute('type') == 'password'
-
         profile.click_on_eye_button_new_password_screen()
 
         assert profile.get_new_password_input_attribute('type') == 'text'

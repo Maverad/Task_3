@@ -5,7 +5,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains as AC
 import allure
 from seletools.actions import drag_and_drop
-
+from selenium.common.exceptions import TimeoutException
 
 class BasePage():
     base_url = "https://qa-stellarburgers.education-services.ru/"
@@ -58,6 +58,9 @@ class BasePage():
     def hide_modal(self):
         self.driver.execute_script("""document.querySelectorAll('.Modal_modal_overlay__x2ZCr, [class*="Modal"]').forEach(el => el.style.display = 'none');""")
 
+    def remove_modal_overlay(self):
+        self.driver.execute_script("""document.querySelectorAll('.Modal_modal_overlay__x2ZCr, Modal_modal_overlay__x2ZCr __web-inspector-hide-shortcut__').forEach(el => el.remove());""")
+
     def show_modal(self):
         self.driver.execute_script("""document.querySelectorAll('.Modal_modal_overlay__x2ZCr, [class*="Modal"]').forEach(el => el.style.display = '');""")
 
@@ -78,3 +81,10 @@ class BasePage():
     def wait_for_text_to_appear(self, locator, expected_text):
         WebDriverWait(self.driver, self.base_timeout).until(lambda d: d.find_element(*locator).text == expected_text)
         return self.driver.find_element(*locator).text
+
+    def wait_for_invisibility(self, locator):
+        try:
+            WebDriverWait(self.driver, self.base_timeout).until(EC.invisibility_of_element_located(locator))
+            return True
+        except TimeoutException:
+            return False

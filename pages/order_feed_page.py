@@ -32,6 +32,9 @@ class OrderFeedPage(BasePage):
     def check_order_modal_visible(self):
         return self.check_visibility(locator.order_modal_check)
 
+    def check_order_modal_invisible(self):
+        return self.wait_for_invisibility(locator.order_modal_opened)
+
     def get_all_time_counter(self):
         return int(self.get_text_of_the_element(locator.order_all_time))
 

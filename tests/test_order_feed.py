@@ -3,8 +3,8 @@ import allure
 
 class TestOrderFeed:
 
-    @allure.title('Проверка модального окна заказа')
-    def test_order_details(self, order):
+    @allure.title('Проверка открытия модального окна заказа')
+    def test_order_details_open(self, order):
         order.hide_modal()
         order.click_on_order_feed()
         order.wait_for_order_feed_screen()
@@ -14,7 +14,18 @@ class TestOrderFeed:
 
         assert order.check_order_modal_visible()
 
+    @allure.title('Проверка закрытия модального окна заказа')
+    def test_order_details_close(self, order):
+        order.hide_modal()
+        order.click_on_order_feed()
+        order.wait_for_order_feed_screen()
+        order.click_on_last_order()
+        order.show_modal()
+        order.remove_modal_overlay()
+        order.wait_for_order_modal()
         order.close_order_modal()
+
+        assert order.check_order_modal_invisible()
 
     @allure.title('Проверка увеличения счетчика "Выполнено за все время"')
     def test_counter_all_time(self, order, constructor, login_profile):
@@ -51,6 +62,7 @@ class TestOrderFeed:
         constructor.show_modal()
         constructor.wait_for_order_modal()
         order_id = '0' + constructor.get_order_id_counter()
+        constructor.remove_modal_overlay()
         constructor.close_modal()
         constructor.hide_modal()
         order.click_on_order_feed()

@@ -10,6 +10,6 @@ class OrderFeedPage:
     last_order_id = (By.XPATH, '(.//p[@class="text text_type_digits-default"])[1]')
     order_modal_opened = (By.XPATH, './/section[@class="Modal_modal_opened__3ISw4 Modal_modal__P3_V5"]')
     order_modal_closed = (By.XPATH, '(.//section[@class="Modal_modal__P3_V5"])[1]')
-    close_order_modal = (By.XPATH, '(.//button[@class="Modal_modal__close_modified__3V5XS Modal_modal__close__TnseK"])[1]')
+    close_order_modal = (By.XPATH, '(.//button[@class="Modal_modal__close_modified__3V5XS Modal_modal__close__TnseK"])[2]')
     order_modal_check = (By.XPATH, './/p[text()="Cостав"]')
     order_feed = (By.XPATH, './/p[text()="Лента Заказов"]')
